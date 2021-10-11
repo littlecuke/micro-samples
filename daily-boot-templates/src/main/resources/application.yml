@@ -1,0 +1,42 @@
+
+
+### dynamic-datasource 必须
+spring:
+  jackson:
+    time-zone: GMT+8
+  profiles:
+    active: @profiles.active@
+  datasource:
+    dynamic:
+      primary: master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          driver-class-name: ${master.driver-class-name}
+          type: ${master.type}
+          url: ${master.url}
+          username: ${master.username}
+          password: ${master.password}
+
+## mybatis
+mybatis:
+  config-location: classpath:mapper/mybatis-config.xml
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*/*.xml
+  typeEnumsPackage:
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+  configuration:
+    map-underscore-to-camel-case: true
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+jackson:
+  default-property-inclusion: non_null
